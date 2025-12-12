@@ -2,6 +2,8 @@ import { createRouter,createWebHistory } from "vue-router";
 import HomeView from "@/views/main/HomeView.vue";
 import FoodDetailView from "@/views/food/FoodDetailView.vue";
 import FoodFindView from "@/views/food/FoodFindView.vue";
+import BoardListView from "@/views/board/BoardListView.vue";
+import BoardDetailView from "@/views/board/BoardDetailView.vue";
 
 const routes=[
     {
@@ -19,6 +21,17 @@ const routes=[
         path:'/vue/find',
         name:'food_find',
         component:FoodFindView
+    },
+    {
+        path:'/board/list',
+        name:'board_list',
+        component:BoardListView
+    },
+    {
+        path:'/board/detail/:no',
+        name:'board_detail',
+        component:BoardDetailView
+        
     }
 ]
 const router=createRouter({

@@ -14,7 +14,7 @@
 
                     </ul>
                 </li>
-                <li><a href="#">커뮤니티</a></li>
+                <li><router-link to="/board/list">커뮤니티</router-link></li>
                     
             </ul>
         </div>

@@ -8,7 +8,7 @@
                 <option value="type">음식종류</option>
             </select>
             <input type="text" size="20" class="input-sm" v-model="ss">
-            <button class="btn-sm btn-danger">검색</button>
+            <button class="btn-sm btn-danger" @click="find()">검색</button>
         </div>
         <div class="row" style="margin-top: 20px;">
             <div class="col-md-3" v-for="(vo, index) in find_data.list" :key="index">
@@ -24,11 +24,10 @@
         </div>
         <div class="row text-center" style="margin-top: 20px">
             <ul class="pagination">
-                <li v-if="find_data.startPage > 1"><a class="a-link">&laquo;</a></li>
+                <li v-if="find_data.startPage > 1"><a class="a-link" @click="foodFindData(column,find_data.startPage-1,ss)">&laquo;</a></li>
                 <li v-for="i in range(find_data.startPage, find_data.endPage)" :key="i"
-                    :class="find_data.curpage == i ? 'active' : ''"><a class="a-link">{{ i }}</a></li>
-                <li v-if="find_data.endPage < find_data.totalpage"><a class="a-link"
-                        @click="FindListData(find_data.endPage + 1)">&raquo;</a></li>
+                    :class="find_data.curpage == i ? 'active' : ''"><a class="a-link" @click="foodFindData(column,i,ss)">{{ i }}</a></li>
+                <li v-if="find_data.endPage < find_data.totalpage"><a class="a-link" @click="foodFindData(column,find_data.startPage+1,ss)">&raquo;</a></li>
             </ul>
         </div>
     </div>
@@ -59,12 +58,12 @@ import {ref} from 'vue';
 export default defineComponent({
     setup() {
         const ss=ref("")
-        const column=ref("") // v-model와 연결되는 변수
+        const column=ref("all") // v-model와 연결되는 변수
         const store = useStore()
         const find_data = computed(() => store.state.foods.find_data)
         // action함수 호출 
         const foodFindData = async (column,page,ss) => {
-            await store.dispatch("foods/foodFindData", column,page,ss)
+            await store.dispatch("foods/foodFindData", {column,page,ss})
             console.log(find_data.value)
         }
         onMounted(() => {
@@ -78,6 +77,9 @@ export default defineComponent({
         }
     },
     methods: {
+        find(){
+            this.foodFindData(this.column,1,this.ss)
+        },
         range(start, end) {
             const len = end - start
             const arr = []

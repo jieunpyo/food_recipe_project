@@ -96,6 +96,7 @@ export default {
             state.food_detail = payload
         },
         SET_FIND_DATA(state, payload) {
+            console.log(payload)
             state.find_data = payload
         }
     },
@@ -157,7 +158,7 @@ export default {
             await axios.get('http://localhost/main_vue/', {
                 params: { page }
             }).then(response => {
-                console.log(response.data)
+                console.log(response)
                 commit('SET_FOOD_DATA', response.data)
                 // this.food_data=response.data
                 // commit => mutation에 있는 함수 호출
@@ -168,7 +169,7 @@ export default {
             await axios.get("http://localhost/food/detail_vue/", {
                 params: { fno }
             }).then(response => {
-                console.log(response.data)
+                console.log(response)
                 commit("SET_FOOD_DETAIL", response.data)
             })
         },
@@ -179,7 +180,7 @@ export default {
               ss:'검색어'
             }
         */
-        async foodFindData({ commit }, column, page, ss) {
+        async foodFindData({ commit }, {column, page, ss}) {
             console.log("foodFindData" + column + " " + page + " " + ss)
             await axios.get('http://localhost/food/find_vue/', {
                 params: {
