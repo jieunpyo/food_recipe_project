@@ -27,46 +27,47 @@
                 <li v-if="find_data.startPage > 1"><a class="a-link" @click="foodFindData(column,find_data.startPage-1,ss)">&laquo;</a></li>
                 <li v-for="i in range(find_data.startPage, find_data.endPage)" :key="i"
                     :class="find_data.curpage == i ? 'active' : ''"><a class="a-link" @click="foodFindData(column,i,ss)">{{ i }}</a></li>
-                <li v-if="find_data.endPage < find_data.totalpage"><a class="a-link" @click="foodFindData(column,find_data.startPage+1,ss)">&raquo;</a></li>
+                <li v-if="find_data.endPage < find_data.totalpage"><a class="a-link" @click="foodFindData(column,find_data.endPage+1,ss)">&raquo;</a></li>
             </ul>
         </div>
     </div>
 </template>
 <script>
-/*
-    Controller = router/index.js
-                    | food.js = index.js = store에 저장 
-                    | 변수 = state
-    main.html = public / index.html
-        | include : App.vue
-    home.html = Home.vue
-    header.html = Header.vue
-    
-    화면 UI 
-      |
-    이벤트 = 메뉴클릭 / 버튼 클릭 
-      |
-    food.js / recipe.js 
-      |
-    store = state변수에 저장 
-      |
-    해당 vue에서 store에 있는 state를 읽어서 출력
-*/
-import { defineComponent, onMounted, computed } from 'vue';
-import { useStore } from 'vuex';
-import {ref} from 'vue';
-export default defineComponent({
-    setup() {
+    /*
+        Controller = router/index.js
+                        | food.js = index.js = store에 저장 
+                        | 변수 = state
+        main.html = public / index.html
+            | include : App.vue
+        home.html = Home.vue
+        header.html = Header.vue
+        
+        화면 UI 
+          |
+        이벤트 = 메뉴클릭 / 버튼 클릭 
+          |
+        food.js / recipe.js 
+          |
+        store = state변수에 저장 
+          |
+        해당 vue에서 store에 있는 state를 읽어서 출력
+    */
+  
+import { defineComponent,onMounted,computed } from 'vue';
+   import { useStore } from 'vuex';
+   import {ref} from 'vue';
+   export default defineComponent({
+      setup(){
         const ss=ref("")
         const column=ref("all") // v-model와 연결되는 변수
-        const store = useStore()
-        const find_data = computed(() => store.state.foods.find_data)
+        const store=useStore()
+        const find_data=computed(()=> store.state.foods.find_data)
         // action함수 호출 
-        const foodFindData = async (column,page,ss) => {
-            await store.dispatch("foods/foodFindData", {column,page,ss})
+        const foodFindData=async(column,page,ss)=>{
+            await store.dispatch("foods/foodFindData",{column,page,ss})
             console.log(find_data.value)
         }
-        onMounted(() => {
+        onMounted(()=>{
             foodFindData('all',1,null)
         })
         return {
@@ -75,23 +76,24 @@ export default defineComponent({
             ss,
             column
         }
-    },
-    methods: {
+      },
+      methods:{
         find(){
-            this.foodFindData(this.column,1,this.ss)
+          this.foodFindData(this.column,1,this.ss)
         },
-        range(start, end) {
-            const len = end - start
-            const arr = []
-            for (let i = 0; i <= len; i++) {
-                arr[i] = start
-                start++
+        range(start,end){
+            const len=end-start
+            const arr=[]
+            for(let i=0;i<=len;i++)
+            {
+               arr[i]=start
+               start++
             }
             return arr
         }
-    }
+      }
 
-})
+   })
 </script>
 <style scoped>
 .row {
@@ -104,8 +106,7 @@ p {
     white-space: nowrap;
     text-overflow: ellipsis;
 }
-
-.a-link:hover {
+.a-link:hover{
     cursor: pointer;
 }
 </style>

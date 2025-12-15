@@ -6,7 +6,7 @@
                 <tbody>
                     <tr>
                         <td class="text-left">
-                            <a href="/board/insert" class="btn btn-xs btn-warning">새글</a>
+                            <router-link to="/board/insert" class="btn btn-xs btn-warning">새글</router-link>
                         </td>
                     </tr>
                 </tbody>
@@ -53,7 +53,7 @@ const router=useRouter()
 const board_list=computed(()=>store.state.boards.board_list)
 
 onMounted(()=>{
-    store.dispatch('boards/boardListData',1)
+  store.dispatch('boards/boardListData',1)
 })
 
 const goDetail=(no)=>{
@@ -61,12 +61,12 @@ const goDetail=(no)=>{
 }
 </script>
 <style scoped>
-.row {
-    margin: 0px auto;
-    width: 800px;
-}
-.dataTr:hover{
-    cursor: pointer;
-    background-color: darksalmon;
-}
+   .row {
+       margin: 0px auto;
+       width: 800px
+   }
+   .dataTr:hover{
+     cursor: pointer;
+     background-color: darksalmon;
+   }
 </style>
