@@ -85,19 +85,19 @@ export default {
     state: {
         food_data: {}, // Map
         food_detail: {},// VO
-        find_data:{} // Array [] , Object {}
+        find_data: {} // Array [] , Object {}
     },
     // 수정 , 삭제 , 추가 ..
     mutations: {
         SET_FOOD_DATA(state, payload) {
             state.food_data = payload
         },
-        SET_FOOD_DETAIL(state,payload){
-            state.food_detail=payload
+        SET_FOOD_DETAIL(state, payload) {
+            state.food_detail = payload
         },
-        SET_FIND_DATA(state,payload){
+        SET_FIND_DATA(state, payload) {
             console.log(payload)
-            state.find_data=payload
+            state.find_data = payload
         }
     },
     // 서버와 연결 => 요청 담당
@@ -164,13 +164,13 @@ export default {
                 // commit => mutation에 있는 함수 호출
             })
         },
-        async foodDetailData({commit},fno){
-            console.log("foodDetailData Call:"+fno)
-            await axios.get("http://localhost/food/detail_vue/",{
-                 params:{fno}
-            }).then(response=>{
+        async foodDetailData({ commit }, fno) {
+            console.log("foodDetailData Call:" + fno)
+            await axios.get("http://localhost/food/detail_vue/", {
+                params: { fno }
+            }).then(response => {
                 console.log(response)
-                commit("SET_FOOD_DETAIL",response.data)
+                commit("SET_FOOD_DETAIL", response.data)
             })
         },
         /*
@@ -180,15 +180,15 @@ export default {
               ss:'검색어'
             }
         */
-        async foodFindData({commit},{column,page,ss}){
-            console.log("foodFindData:"+column+" "+page+" "+ss)
-            await axios.get('http://localhost/food/find_vue/',{
-                params:{
-                    column,page,ss
+        async foodFindData({ commit }, { column, page, ss }) {
+            console.log("foodFindData:" + column + " " + page + " " + ss)
+            await axios.get('http://localhost/food/find_vue/', {
+                params: {
+                    column, page, ss
                 }
-            }).then(response=>{
+            }).then(response => {
                 console.log(response.data)
-                commit('SET_FIND_DATA',response.data)
+                commit('SET_FIND_DATA', response.data)
             })
 
         }

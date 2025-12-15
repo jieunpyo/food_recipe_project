@@ -22,20 +22,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(vo,key) in board_list.list" :key="key" class="dataTr" @click="goDetail(vo.no)">
-                        <td class="text-center" width=10%>{{vo.no}}</td>
-                        <td width=45% class="text-left">{{vo.subject}}</td>
-                        <td class="text-center" width=15%>{{vo.name}}</td>
-                        <td class="text-center" width=20%>{{vo.dbday}}</td>
+                    <tr v-for="(vo, key) in board_list.list" :key="key" class="dataTr" @click="goDetail(vo.no)">
+                        <td class="text-center" width=10%>{{ vo.no }}</td>
+                        <td width=45% class="text-left">{{ vo.subject }}</td>
+                        <td class="text-center" width=15%>{{ vo.name }}</td>
+                        <td class="text-center" width=20%>{{ vo.dbday }}</td>
                         <td class="text-center" width=10% v-text="vo.hit"></td>
                     </tr>
                     <tr>
                         <td colspan="5" class="text-center">
-                            <a href="#"
-                                class="btn btn-sm btn-info">이전</a>
-                            {{board_list.curpage}} page / {{board_list.totalpage}} pages
-                            <a href="#"
-                                class="btn btn-sm btn-info">다음</a>
+                            <a href="#" class="btn btn-sm btn-info">이전</a>
+                            {{ board_list.curpage }} page / {{ board_list.totalpage }} pages
+                            <a href="#" class="btn btn-sm btn-info">다음</a>
                         </td>
                     </tr>
                 </tbody>
@@ -44,29 +42,30 @@
     </div>
 </template>
 <script setup>
-import { onMounted,computed } from 'vue';
+import { onMounted, computed } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 // use => hook => 자동 처리 함수 
-const store=useStore()
-const router=useRouter()
-const board_list=computed(()=>store.state.boards.board_list)
+const store = useStore()
+const router = useRouter()
+const board_list = computed(() => store.state.boards.board_list)
 
-onMounted(()=>{
-  store.dispatch('boards/boardListData',1)
+onMounted(() => {
+    store.dispatch('boards/boardListData', 1)
 })
 
-const goDetail=(no)=>{
+const goDetail = (no) => {
     router.push(`/board/detail/${no}`)
 }
 </script>
 <style scoped>
-   .row {
-       margin: 0px auto;
-       width: 800px
-   }
-   .dataTr:hover{
-     cursor: pointer;
-     background-color: darksalmon;
-   }
+.row {
+    margin: 0px auto;
+    width: 800px
+}
+
+.dataTr:hover {
+    cursor: pointer;
+    background-color: darksalmon;
+}
 </style>

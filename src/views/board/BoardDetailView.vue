@@ -22,7 +22,8 @@
                     </tr>
                     <tr>
                         <td colspan="4" class="text-left" valign="top" height="250">
-                            <pre style="white-space: pre-wrap;background-color: white;border:none">{{ vo.content }}</pre>
+                            <pre
+                                style="white-space: pre-wrap;background-color: white;border:none">{{ vo.content }}</pre>
                         </td>
                     </tr>
                     <tr>
@@ -38,38 +39,38 @@
     </div>
 </template>
 <script setup>
-    import { useRoute,useRouter } from 'vue-router';
-    import { onMounted,computed } from 'vue';
-    import { useStore } from 'vuex';
-    const route=useRoute()
-    const router=useRouter()
-    const store=useStore()
+import { useRoute, useRouter } from 'vue-router';
+import { onMounted, computed } from 'vue';
+import { useStore } from 'vuex';
+const route = useRoute()
+const router = useRouter()
+const store = useStore()
 
-    const vo=computed(()=>store.state.boards.board_detail)
-    onMounted(()=>{
-        store.dispatch('boards/boardDetailData',
-              route.params.no)
-    })
-    const goList=()=>{
-        router.push('/board/list')
-    }
-    // PathValiable
-    const goUpdate=()=>{
-        router.push(`/board/update/${route.params.no}`)
-    }
-    /*
-       {
-        path:'/board/detail/:no',
-        name:'board_detail',
-        
-       }
-       == 여러개 : routes ==> 관리 router
-    */
+const vo = computed(() => store.state.boards.board_detail)
+onMounted(() => {
+    store.dispatch('boards/boardDetailData',
+        route.params.no)
+})
+const goList = () => {
+    router.push('/board/list')
+}
+// PathValiable
+const goUpdate = () => {
+    router.push(`/board/update/${route.params.no}`)
+}
+/*
+   {
+    path:'/board/detail/:no',
+    name:'board_detail',
     
+   }
+   == 여러개 : routes ==> 관리 router
+*/
+
 </script>
 <style scoped>
-        .row {
-            margin: 0px auto;
-            width: 800px
-        }
+.row {
+    margin: 0px auto;
+    width: 800px
+}
 </style>
